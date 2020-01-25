@@ -17,7 +17,8 @@ npm run build
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-> 사용한 것들
+## 사용한 것들
 
-팝업 대화 상자를 위한 Modal
-더 나은 애니메이션을 위한 뷰-애니메이션
+> 팝업 대화 상자를 위한 Modal
+> 더 나은 애니메이션을 위한 Vue-animation
+> 할 일 입력 기능
