@@ -4,10 +4,24 @@
     <TodoInput v-on:addTodo="addTodo"></TodoInput>
     <TodoList v-bind:propsdata="todoItems" @editTodo="editTodo" @removeTodo="removeTodo"></TodoList>
     <TodoFooter v-on:removeAll="clearAll"></TodoFooter>
+    <modal v-if="editModal" @close="editModal = false">
+      <h3 slot="header">{{todoItem}}</h3>
+      <input
+        slot="body"
+        type="text"
+        v-model="editItem"
+        v-on:keyup.enter="editContent"
+        placeholder="수정할 계획을 입력하세요"
+      >
+      <span slot="footer" @click="editModal = false; editContent()">
+        <i class="closeModalBtn far fa-check-square" aria-hidden="true"></i>
+      </span>
+    </modal>
   </div>
 </template>
 
 <script>
+import Modal from "./components/common/Modal.vue";
 import TodoFooterVue from "./components/TodoFooter.vue";
 import TodoListVue from "./components/TodoList.vue";
 import TodoInputVue from "./components/TodoInput.vue";
@@ -16,7 +30,11 @@ import TodoHeaderVue from "./components/TodoHeader.vue";
 export default {
   data() {
     return {
-      todoItems: []
+      todoItems: [],
+      editModal: false,
+      editItem: "",
+      todoItem: "",
+      editIndex: 0
     };
   },
   created() {
@@ -43,15 +61,25 @@ export default {
       this.todoItems.splice(index, 1);
     },
     editTodo(todoItem, index) {
+      this.editModal = !this.editModal;
+      this.editIndex = index;
+      this.todoItem = todoItem;
+      //editItem = this.todoItem;
       // this.editModal = !this.editModal;
       console.log("Edit");
+    },
+    editContent() {
+      this.addTodo(this.editItem);
+      this.removeTodo(this.todoItem, this.editIndex);
+      this.editItem = "";
     }
   },
   components: {
     TodoHeader: TodoHeaderVue,
     TodoInput: TodoInputVue,
     TodoList: TodoListVue,
-    TodoFooter: TodoFooterVue
+    TodoFooter: TodoFooterVue,
+    Modal: Modal
   }
 };
 </script>

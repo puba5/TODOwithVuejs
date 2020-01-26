@@ -25,8 +25,7 @@ export default {
     },
     editTodo(todoItem, index) {
       this.$emit("editTodo", todoItem, index);
-    },
-    editModal() {}
+    }
   }
 };
 </script>
